@@ -15,14 +15,12 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const soundUrl = Util.getS3PreSignedUrl("Media/test.mp3");
-        const speechText = '音声ファイルを再生します。<audio src=${Alexa.escapeXmlCharacters(soundUrl)} />';
-        
+        const url = Util.getS3PreSignedUrl("Media/test.mp3");
+        const token = 'comodoro';
+
         return handlerInput.responseBuilder
-            .speak(speechText)
-            .reprompt(speechText)
-            .getResponse();
-    }
+            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .getResponse();    }
 };
 
 const HelloWorldIntentHandler = {
@@ -31,12 +29,11 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const soundUrl = Util.getS3PreSignedUrl("Media/test.mp3");
-        const speechText = '音声ファイルを再生します。<audio src=${Alexa.escapeXmlCharacters(soundUrl)} />';
-        
+        const url = Util.getS3PreSignedUrl("Media/test.mp3");
+        const token = 'comodoro';
+
         return handlerInput.responseBuilder
-            .speak(speechText)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
             .getResponse();
     }
 };
