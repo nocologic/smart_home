@@ -8,17 +8,19 @@ const Alexa = require('ask-sdk-core');
 const i18n = require('i18next');
 // i18n strings for all supported locales
 const languageStrings = require('./languageStrings');
+const Util = require('./util');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = handlerInput.t('WELCOME_MSG');
-
+        const soundUrl = Util.getS3PreSignedUrl("Media/test.mp3");
+        const speechText = '音声ファイルを再生します。<audio src=${Alexa.escapeXmlCharacters(soundUrl)} />';
+        
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
+            .speak(speechText)
+            .reprompt(speechText)
             .getResponse();
     }
 };
@@ -29,10 +31,11 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const speakOutput = handlerInput.t('HELLO_MSG');
-
+        const soundUrl = Util.getS3PreSignedUrl("Media/test.mp3");
+        const speechText = '音声ファイルを再生します。<audio src=${Alexa.escapeXmlCharacters(soundUrl)} />';
+        
         return handlerInput.responseBuilder
-            .speak(speakOutput)
+            .speak(speechText)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
