@@ -16,7 +16,7 @@ const LaunchRequestHandler = {
     },
     handle(handlerInput) {
         const url = Util.getS3PreSignedUrl("Media/test.mp3");
-        const token = 'comodoro';
+        const token = 'test';
 
         return handlerInput.responseBuilder
             .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
@@ -30,7 +30,7 @@ const HelloWorldIntentHandler = {
     },
     handle(handlerInput) {
         const url = Util.getS3PreSignedUrl("Media/test.mp3");
-        const token = 'comodoro';
+        const token = 'test';
 
         return handlerInput.responseBuilder
             .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
