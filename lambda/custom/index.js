@@ -15,12 +15,15 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const url = Util.getS3PreSignedUrl("Media/test.mp3");
+        const url = Util.getS3PreSignedUrl('Media/test.mp3');
         const token = 'test';
+        const speakOutput = '再生します。';
 
         return handlerInput.responseBuilder
-            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
-            .getResponse();    }
+            .speak(speakOutput)
+//            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .getResponse();
+    }
 };
 
 const HelloWorldIntentHandler = {
@@ -29,14 +32,42 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const url = Util.getS3PreSignedUrl("Media/test.mp3");
+        const url = Util.getS3PreSignedUrl('Media/test.mp3');
         const token = 'test';
+        const speakOutput = '再生します。';
 
         return handlerInput.responseBuilder
-            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .speak(speakOutput)
+//            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
             .getResponse();
     }
 };
+
+const playbackNearlyFinishedHandler = {
+    canHandle(handlerInput) {
+        return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackNearlyFinished');
+    },
+    handle(handlerInput) {
+        const speakOutput = '再生が終了します。';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+}
+
+const playbackFinishedHandler = {
+    canHandle(handlerInput) {
+        return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackFinished');
+    },
+    handle(handlerInput) {
+        const speakOutput = '再生が終了しました。';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+}
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
