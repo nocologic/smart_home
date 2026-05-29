@@ -21,7 +21,7 @@ const LaunchRequestHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-//            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
             .getResponse();
     }
 };
@@ -38,7 +38,7 @@ const HelloWorldIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-//            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
             .getResponse();
     }
 };
