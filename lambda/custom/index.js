@@ -9,6 +9,8 @@ const i18n = require('i18next');
 // i18n strings for all supported locales
 const languageStrings = require('./languageStrings');
 const Util = require('./util');
+const speakOutput = '再生を開始します。';
+const speakOutput2 = '再生を終了します。';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -19,7 +21,9 @@ const LaunchRequestHandler = {
         const token = String(Math.random());
 
         return handlerInput.responseBuilder
+            .speak(speakOutput) 
             .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .speak(speakOutput2)
             .getResponse();
     }
 };
@@ -34,7 +38,9 @@ const HelloWorldIntentHandler = {
         const token = String(Math.random());
 
         return handlerInput.responseBuilder
+            .speak(speakOutput)
             .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .speak(speakOutput2)
             .getResponse();
     }
 };
@@ -63,7 +69,9 @@ const playbackFinishedHandler = {
         const token = String(Math.random());
 
         return handlerInput.responseBuilder
+            .speak(speakOutput)
             .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
+            .speak(speakOutput2)
             .getResponse();
     }
 }
