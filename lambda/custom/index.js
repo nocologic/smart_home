@@ -17,6 +17,8 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
+        console.log('ASK_PlaybackStart');
+
         return handlerInput.responseBuilder
             .speak(speakOutput) 
             .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
@@ -41,6 +43,8 @@ const HelloWorldIntentHandler = {
 
 const playbackNearlyFinishedHandler = {
     canHandle(handlerInput) {
+        console.log('ASK_playbackNearlyFinishedHandler');
+        
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackNearlyFinished');
     },
     handle(handlerInput) {
@@ -48,19 +52,23 @@ const playbackNearlyFinishedHandler = {
             .addAudioPlayerPlayDirective('ENQUEUE', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, handlerInput.requestEnvelope.context.AudioPlayer.token)
             .getResponse();
     }
-}
+};
 
 const playbackFinishedHandler = {
     canHandle(handlerInput) {
+        console.log('ASK_playbackFinishedHandler');
+        
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackFinished');
     },
     handle(handlerInput) {
+        console.log('ASK_PlaybackFinished');
+
         return handlerInput.responseBuilder
             .speak(speakOutput2)
             .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
             .getResponse();
     }
-}
+};
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -91,6 +99,7 @@ const CancelAndStopIntentHandler = {
             .getResponse();
     }
 };
+
 /* *
  * FallbackIntent triggers when a customer says something that doesn’t map to any intents in your skill
  * It must also be defined in the language model (if the locale supports it)
