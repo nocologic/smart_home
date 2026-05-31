@@ -17,13 +17,9 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const url = Util.getS3PreSignedUrl('Media/test.mp3');
-        const token = String(Math.random());
-
         return handlerInput.responseBuilder
             .speak(speakOutput) 
-            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
-            .speak(speakOutput2)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
             .getResponse();
     }
 };
@@ -34,13 +30,11 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const url = Util.getS3PreSignedUrl('Media/test.mp3');
         const token = String(Math.random());
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
-            .speak(speakOutput2)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
             .getResponse();
     }
 };
@@ -50,12 +44,8 @@ const playbackNearlyFinishedHandler = {
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackNearlyFinished');
     },
     handle(handlerInput) {
-        let url = Util.getS3PreSignedUrl('Media/test.mp3');
-        let token = String(Math.random());
-        let token2 = handlerInput.requestEnvelope.context.AudioPlayer.token;
-
         return handlerInput.responseBuilder
-            .addAudioPlayerPlayDirective('ENQUEUE', url, token, 0, token2)
+            .addAudioPlayerPlayDirective('ENQUEUE', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, handlerInput.requestEnvelope.context.AudioPlayer.token)
             .getResponse();
     }
 }
@@ -65,13 +55,9 @@ const playbackFinishedHandler = {
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackFinished');
     },
     handle(handlerInput) {
-        const url = Util.getS3PreSignedUrl('Media/test.mp3');
-        const token = String(Math.random());
-
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .addAudioPlayerPlayDirective('REPLACE_ALL', url, token, 0, null)
             .speak(speakOutput2)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
             .getResponse();
     }
 }
