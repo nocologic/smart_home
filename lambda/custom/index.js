@@ -41,7 +41,7 @@ const HelloWorldIntentHandler = {
     }
 };
 
-const playbackNearlyFinishedHandler = {
+const PlaybackNearlyFinishedHandler = {
     canHandle(handlerInput) {
         console.log('ASK_playbackNearlyFinishedHandler');
         
@@ -54,7 +54,7 @@ const playbackNearlyFinishedHandler = {
     }
 };
 
-const playbackFinishedHandler = {
+const PlaybackFinishedHandler = {
     canHandle(handlerInput) {
         console.log('ASK_playbackFinishedHandler');
         
@@ -208,8 +208,8 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         HelloWorldIntentHandler,
-        playbackNearlyFinishedHandler,
-        playbackFinishedHandler,
+        PlaybackNearlyFinishedHandler,
+        PlaybackFinishedHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
