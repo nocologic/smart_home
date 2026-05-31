@@ -17,8 +17,6 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        console.log('ASK_PlaybackStart');
-
         return handlerInput.responseBuilder
             .speak(speakOutput) 
             .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
@@ -32,8 +30,6 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const token = String(Math.random());
-
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addAudioPlayerPlayDirective('REPLACE_ALL', Util.getS3PreSignedUrl('Media/test.mp3'), String(Math.random()), 0, null)
@@ -43,7 +39,7 @@ const HelloWorldIntentHandler = {
 
 const PlaybackNearlyFinishedHandler = {
     canHandle(handlerInput) {
-        console.log('ASK_playbackNearlyFinishedHandler');
+        console.log('ASK_' + handlerInput.requestEnvelope.request.intent.name);
         
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackNearlyFinished');
     },
@@ -56,8 +52,6 @@ const PlaybackNearlyFinishedHandler = {
 
 const PlaybackFinishedHandler = {
     canHandle(handlerInput) {
-        console.log('ASK_playbackFinishedHandler');
-        
         return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackFinished');
     },
     handle(handlerInput) {
