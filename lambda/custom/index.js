@@ -39,9 +39,9 @@ const HelloWorldIntentHandler = {
 
 const PlaybackNearlyFinishedHandler = {
     canHandle(handlerInput) {
-        console.log('ASK_' + handlerInput.requestEnvelope.request.intent.name);
+        console.log('ASK_' + handlerInput.requestEnvelope.request.type);
         
-        return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackNearlyFinished');
+        return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackNearlyFinished';
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
@@ -52,7 +52,7 @@ const PlaybackNearlyFinishedHandler = {
 
 const PlaybackFinishedHandler = {
     canHandle(handlerInput) {
-        return Util.checkIntentTypeName(handlerInput, 'AudioPlayer.PlaybackFinished');
+        return handlerInput.requestEnvelope.request.type === 'AudioPlayer.PlaybackFinished';
     },
     handle(handlerInput) {
         console.log('ASK_PlaybackFinished');
